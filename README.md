@@ -1,4 +1,4 @@
-# SeaTyrants - Website - Backend
+# Alyvo - StarterKit - Backend
 
 ## 🛠 Tech Stack
 
