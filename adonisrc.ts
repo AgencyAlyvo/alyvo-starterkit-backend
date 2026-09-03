@@ -48,10 +48,10 @@ export default defineConfig({
       environment: ['repl', 'test'],
     },
     () => import('@adonisjs/core/providers/vinejs_provider'),
+    () => import('@adonisjs/session/session_provider'),
     () => import('@adonisjs/shield/shield_provider'),
     () => import('@adonisjs/lucid/database_provider'),
     () => import('@adonisjs/cors/cors_provider'),
-    () => import('@adonisjs/session/session_provider'),
     () => import('@adonisjs/auth/auth_provider'),
     () => import('#providers/api_provider'),
   ],
@@ -64,11 +64,7 @@ export default defineConfig({
   | List of modules to import before starting the application.
   |
   */
-  preloads: [
-    () => import('#start/routes'),
-    () => import('#start/kernel'),
-    () => import('#start/validator')
-  ],
+  preloads: [() => import('#start/routes'), () => import('#start/kernel'), () => import('#start/validator')],
 
   /*
   |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
+import env from '#start/env'
 import app from '@adonisjs/core/services/app'
 import { defineConfig } from '@adonisjs/lucid'
-import env from '#start/env'
 
 const dbConfig = defineConfig({
   /**
@@ -53,8 +53,36 @@ const dbConfig = defineConfig({
      * PostgreSQL connection.
      * Install package to switch: npm install pg
      */
-    // pg: {
-    //   client: 'pg',
+    /**
+     * PostgreSQL connection.
+     * Install package to switch: npm install pg
+     */
+    pg: {
+      client: 'pg',
+      connection: {
+        host: env.get('DB_HOST'),
+        port: env.get('DB_PORT'),
+        user: env.get('DB_USER'),
+        password: env.get('DB_PASSWORD'),
+        database: env.get('DB_DATABASE'),
+      },
+      migrations: {
+        naturalSort: true,
+        paths: ['database/migrations'],
+      },
+      schemaGeneration: {
+        enabled: true,
+        rulesPaths: ['./database/schema_rules.js'],
+      },
+      debug: env.get('DB_DEBUG'),
+    },
+
+    /**
+     * MySQL / MariaDB connection.
+     * Install package to switch: npm install mysql2
+     */
+    // mysql: {
+    //   client: 'mysql2',
     //   connection: {
     //     host: env.get('DB_HOST'),
     //     port: env.get('DB_PORT'),
@@ -68,31 +96,6 @@ const dbConfig = defineConfig({
     //   },
     //   debug: app.inDev,
     // },
-
-    /**
-     * MySQL / MariaDB connection.
-     * Install package to switch: npm install mysql2
-     */
-    mysql: {
-      client: 'mysql2',
-      connection: {
-        host: env.get('DB_HOST'),
-        port: env.get('DB_PORT'),
-        user: env.get('DB_USER'),
-        password: env.get('DB_PASSWORD'),
-        database: env.get('DB_DATABASE'),
-        charset: 'utf8mb4',
-      },
-      migrations: {
-        naturalSort: true,
-        paths: ['database/migrations'],
-      },
-      schemaGeneration: {
-        enabled: true,
-        rulesPaths: ['./database/schema_rules.js'],
-      },
-      debug: env.get('DB_DEBUG'),
-    },
 
     /**
      * Microsoft SQL Server connection.

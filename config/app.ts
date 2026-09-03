@@ -1,16 +1,6 @@
 import env from '#start/env'
 import app from '@adonisjs/core/services/app'
 import { defineConfig } from '@adonisjs/core/http'
-import proxyAddr from 'proxy-addr'
-
-/**
- * The app key is used for encrypting cookies, generating signed URLs,
- * and by the "encryption" module.
- *
- * The encryption module will fail to decrypt data if the key is lost or
- * changed. Therefore it is recommended to keep the app key secure.
- */
-export const appKey = env.get('APP_KEY')
 
 /**
  * The app URL can be used in various places where you want to create absolute
@@ -41,6 +31,19 @@ export const http = defineConfig({
    * from anywhere inside your application.
    */
   useAsyncLocalStorage: false,
+
+  /**
+   * Redirect configuration controls the behavior of
+   * response.redirect().back() and query string forwarding.
+   */
+  redirect: {
+    /**
+     * When enabled, all redirects automatically carry over the current
+     * request's query string parameters to the redirect destination.
+     * Use withQs(false) to opt out for a specific redirect.
+     */
+    forwardQueryString: true,
+  },
 
   /**
    * Manage cookies configuration. The settings for the session id cookie are
@@ -78,11 +81,4 @@ export const http = defineConfig({
      */
     sameSite: 'lax',
   },
-
-  /**
-   * Trust the loopback address and private IP ranges.
-   * This is safe for most deployment scenarios where your
-   * proxy runs on the same machine or private network.
-   */
-  trustProxy: proxyAddr.compile(['loopback', 'uniquelocal']),
 })
